@@ -13,7 +13,7 @@
   "author": "Giles Edkins",
   "license": "ISC",
   "dependencies": {
-    "connect": "^3.7.0",
+    "express": "^4.17.1",
     "simple-html-index": "^1.5.0"
   },
   "devDependencies": {

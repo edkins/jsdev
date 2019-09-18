@@ -1,4 +1,4 @@
-let connect = require('connect');
+let express = require('express');
 let http = require('http');
 
 let defaultIndex = require('simple-html-index');
@@ -13,7 +13,7 @@ let bundler = browserify('app.js', {
 });
 let watchify = watchifyMiddleware(bundler);
 
-let app = connect();
+let app = express();
 
 app.use('/index.html', function(req,res) {
 	defaultIndex({entry:staticUrl}).pipe(res);
@@ -23,5 +23,5 @@ app.use('/api/', function(req,res) {
 	res.end('Hello from Connect2!\n');
 });
 
-http.createServer(app).listen(3000);
+app.listen(3000, 'localhost');
 
