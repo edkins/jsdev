@@ -19,6 +19,7 @@
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-redux": "^7.1.1",
+    "react-table": "^6.10.3",
     "redux": "^4.0.4",
     "redux-thunk": "^2.3.0",
     "simple-html-index": "^1.5.0"
@@ -26,6 +27,7 @@
   "devDependencies": {
     "@babel/core": "^7.6.0",
     "babelify": "^10.0.0",
+    "browserify-css": "^0.15.0",
     "nodemon": "^1.19.2",
     "watchify-middleware": "^1.8.2"
   },

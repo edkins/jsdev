@@ -4,7 +4,9 @@ const bundler = browserify('client-src/app.jsx', {
 	cache: {},
 	packageCache: {},
 	extensions: ['.jsx']
-}).transform('babelify', {presets: ['@babel/env','@babel/preset-react']});
+})
+	.transform('babelify', {presets: ['@babel/env','@babel/preset-react']})
+	.transform('browserify-css', {minify:true, autoInject:true});
 const watchify = watchifyMiddleware(bundler);
 
 module.exports = watchify;

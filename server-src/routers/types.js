@@ -1,8 +1,9 @@
 const express = require('express');
-const {apiLayersList} = require('../controllers/layers');
+const {apiTypesList} = require('../controllers/types');
 
 const router = express.Router();
 
-router.get('/', apiLayersList);
+router.get('/', apiTypesList);
 
 module.exports = router;
+

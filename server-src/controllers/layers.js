@@ -1,7 +1,7 @@
-const {listDirs} = require('../storage/files');
+const {layersList} = require('../logic/layers');
 
-const apiLayersList = (dir) => (req,res,next) => {
-	listDirs(dir)((err,listing) => {
+const apiLayersList = (req,res,next) => {
+	layersList((err,listing) => {
 		if (err) {
 			next(err);
 		} else {
