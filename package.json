@@ -2,9 +2,9 @@
   "name": "jsdev",
   "version": "1.0.0",
   "description": "Self-hosted javascript development environment based on templates",
-  "main": "index.js",
+  "main": "server-src/index.js",
   "scripts": {
-    "start": "nodemon -w index.js -w server-src index.js"
+    "start": "nodemon server-src/index.js"
   },
   "repository": {
     "type": "git",
@@ -13,11 +13,26 @@
   "author": "Giles Edkins",
   "license": "ISC",
   "dependencies": {
+    "@babel/preset-env": "^7.6.0",
+    "@babel/preset-react": "^7.0.0",
     "express": "^4.17.1",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "react-redux": "^7.1.1",
+    "redux": "^4.0.4",
+    "redux-thunk": "^2.3.0",
     "simple-html-index": "^1.5.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.6.0",
+    "babelify": "^10.0.0",
     "nodemon": "^1.19.2",
     "watchify-middleware": "^1.8.2"
+  },
+  "nodemonConfig": {
+    "ext": "js",
+    "watch": [
+      "server-src"
+    ]
   }
 }
