@@ -1,29 +1,29 @@
 const fs = require('fs');
 const path = require('path');
 
-const listDirs = (dir) => (cb) => {
+const listDirs = (dir) => new Promise((resolve,reject) => {
 	fs.readdir(dir, {withFileTypes:true}, (err,files) => {
 		if (err) {
-			cb(err);
+			reject(err);
 		} else {
 			const listing = files.filter(f => f.isDirectory()).map(f => f.name);
 			listing.sort();
-			cb(undefined,listing);
+			resolve(listing);
 		}
 	});
-};
+});
 
-const listJs = (dir) => (cb) => {
+const listJs = (dir) => new Promise((resolve,reject) => {
 	fs.readdir(dir, (err,files) => {
 		if (err) {
-			next(err);
+			reject(err);
 		} else {
 			const listing = files.filter(f => f.endsWith('.js')).map(f => path.basename(f,'.js'));
 			listing.sort();
-			cb(undefined,listing);
+			resolve(listing);
 		}
 	});
-};
+});
 
 module.exports = {listDirs,listJs};
 

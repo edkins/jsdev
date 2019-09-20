@@ -22,7 +22,7 @@ const ModuleGrid = ({layers,types,dispatch}) => {
 	return <ReactTable
 		data={data}
 		columns={columns}
-		minRows={0}
+		minRows={1}
 		showPagination={false}
 		sortable={false}/>;
 };

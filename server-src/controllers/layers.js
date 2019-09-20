@@ -1,13 +1,10 @@
 const {layersList} = require('../logic/layers');
 
 const apiLayersList = (req,res,next) => {
-	layersList((err,listing) => {
-		if (err) {
-			next(err);
-		} else {
-			res.json({listing: listing.map(id => ({id}))});
-		}
-	});
+	layersList().then(
+		listing => res.json({listing: listing.map(id => ({id}))}),
+		err => next(err)
+	);
 };
 
 module.exports = {apiLayersList};

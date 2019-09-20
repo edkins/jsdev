@@ -1,7 +1,5 @@
 const {listDirs} = require('../storage/files');
 
-const layersList = (cb) => {
-	listDirs('server-src')(cb);
-};
+const layersList = () => listDirs('server-src');
 
 module.exports = {layersList};
