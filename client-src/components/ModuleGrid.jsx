@@ -3,14 +3,24 @@ import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 import ReactTable from 'react-table';
 
-const ModuleGrid = ({layers,types,dispatch}) => {
+const find_module = (modules,layer,type) => {
+	for (const m of modules) {
+		if (m.layer === layer && m.type === type) {
+			console.log(`Found module ${layer} ${type}`);
+			return m;
+		}
+	}
+	return {};
+};
+
+const ModuleGrid = ({layers,types,modules,dispatch}) => {
 	const data = types.map(({id}) => ({
 		id
 	}));
 
 	const columns = layers.map(({id}) => ({
 		id,
-		accessor: d => '',
+		accessor: type => find_module(modules,id,type.id).id,
 		Header: id,
 	}));
 	columns.splice(0,0,{
@@ -27,6 +37,6 @@ const ModuleGrid = ({layers,types,dispatch}) => {
 		sortable={false}/>;
 };
 
-const mapStateToProps = ({layers,types}) => ({layers: layers.listing, types: types.listing});
+const mapStateToProps = ({layers,types,modules}) => ({layers: layers.listing, types: types.listing, modules: modules.listing});
 
 export default connect(mapStateToProps)(ModuleGrid);
