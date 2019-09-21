@@ -19,4 +19,6 @@ const listTypes = (dispatch) => {
 
 const addType = (id) => (dispatch) => dispatch({type: 'ADD_TYPE', payload:{id}});
 
-export {listTypes,addType};
+const editTypeId = (id) => (dispatch) => dispatch({type: 'EDIT_TYPE_ID', payload:{id}});
+
+export {listTypes,addType,editTypeId};

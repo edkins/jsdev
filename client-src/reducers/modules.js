@@ -45,7 +45,8 @@ function modules(state = {loading:false,listing:[],data:'',id:'',fileType:''}, a
                 case 'NEW_MODULE':
                     return Object.assign({}, state, {
                         id: action.payload.id,
-                        data: ''
+                        data: '',
+                        fileType:''
                     });
 
 		default:

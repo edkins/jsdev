@@ -1,1 +1,11 @@
 @import url("../node_modules/react-table/react-table.css");
+
+.main_panel {
+	display: flex;
+}
+
+.table_panel {
+}
+
+.code_panel {
+}
