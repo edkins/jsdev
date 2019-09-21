@@ -17,4 +17,29 @@ const listModules = (dispatch) => {
 	);
 };
 
-export {listModules};
+const getModule = (id) => (dispatch) => {
+	dispatch({
+		type: 'GET_MODULE_REQUEST',
+		payload: {id}
+	});
+
+	fetch(`/api/modules/${id}`).then(x => x.json()).then(
+		payload =>
+			dispatch({
+				type: 'GET_MODULE_SUCCESS',
+				payload: Object.assign({}, payload, {id})
+			}),
+		error =>
+			dispatch({
+				type: 'GET_MODULE_ERROR',
+				error
+			})
+	);
+};
+
+const editModule = (data) => (dispatch) => dispatch({
+	type: 'EDIT_MODULE',
+	payload: {data}
+});
+
+export {listModules,getModule,editModule};

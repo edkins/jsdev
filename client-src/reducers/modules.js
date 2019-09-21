@@ -1,15 +1,43 @@
-function types(state = {loading:false,listing:[]}, action) {
+function modules(state = {loading:false,listing:[]}, action) {
 	switch (action.type) {
 		case 'LIST_MODULES_REQUEST':
-			return {loading:true,listing:state.listing};
+			return Object.assign({}, state, {
+				loading: true
+			});
 		case 'LIST_MODULES_SUCCESS':
-			return {loading:false,listing:action.payload.listing};
+			return Object.assign({}, state, {
+				loading: false,
+				listing: action.payload.listing
+			});
 		case 'LIST_MODULES_ERROR':
-			return {loading:false,listing:state.listing};
+			return Object.assign({}, state, {
+				loading: false,
+			});
+
+		case 'GET_MODULE_REQUEST':
+			return Object.assign({}, state, {
+				loading:true,
+				id:action.payload.id
+			});
+		case 'GET_MODULE_SUCCESS':
+			return Object.assign({}, state, {
+				loading:false,
+				data:action.payload.data,
+				id:action.payload.id
+			});
+		case 'GET_MODULE_ERROR':
+			return Object.assign({}, state, {
+				loading:false,
+			});
+
+		case 'EDIT_MODULE':
+			return Object.assign({}, state, {
+				data:action.payload.data
+			});
 
 		default:
 			return state;
 	}
 }
 
-export default types;
+export default modules;

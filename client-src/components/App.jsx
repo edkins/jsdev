@@ -6,6 +6,7 @@ import {listTypes} from '../thunks/types';
 import {listModules} from '../thunks/modules';
 import LayerList from './LayerList';
 import ModuleGrid from './ModuleGrid';
+import ModuleEdit from './ModuleEdit';
 
 const App = ({dispatch}) =>
 	<div>
@@ -14,6 +15,7 @@ const App = ({dispatch}) =>
 		<button onClick={() => dispatch(listModules)}>List modules</button>
 		<LayerList/>
 		<ModuleGrid/>
+		<ModuleEdit/>
 	</div>;
 
 const mapStateToProps = ({}) => ({});

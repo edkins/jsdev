@@ -25,5 +25,14 @@ const listJs = (dir) => new Promise((resolve,reject) => {
 	});
 });
 
-module.exports = {listDirs,listJs};
+const getJs = (dir,name) => new Promise((resolve,reject) => {
+	fs.readFile(`${dir}/${name}.js`, {encoding:'utf8'}, (err,data) => {
+		if (err) {
+			reject(err);
+		} else {
+			resolve(data);
+		}
+	});
+});
 
+module.exports = {listDirs,listJs,getJs};

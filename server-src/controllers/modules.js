@@ -1,4 +1,4 @@
-const {modulesList} = require('../logic/modules');
+const {modulesList,modulesGet} = require('../logic/modules');
 
 const apiModulesList = (req,res,next) => {
 	modulesList().then(
@@ -7,5 +7,12 @@ const apiModulesList = (req,res,next) => {
 	);
 };
 
-module.exports = {apiModulesList};
+const apiModulesGet = (req,res,next) => {
+	modulesGet(req.params.id).then(
+		data => res.json({data}),
+		err => next(err)
+	);
+};
+
+module.exports = {apiModulesList,apiModulesGet};
 
