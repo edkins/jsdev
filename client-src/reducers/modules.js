@@ -35,6 +35,12 @@ function modules(state = {loading:false,listing:[]}, action) {
 				data:action.payload.data
 			});
 
+                case 'NEW_MODULE':
+                    return Object.assign({}, state, {
+                        id: action.payload.id,
+                        data: ''
+                    });
+
 		default:
 			return state;
 	}

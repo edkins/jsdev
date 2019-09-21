@@ -7,6 +7,9 @@ function types(state = {loading:false,listing:[]}, action) {
 		case 'LIST_TYPES_ERROR':
 			return {loading:false,listing:state.listing};
 
+                case 'ADD_TYPE':
+                    return {loading:false, listing: state.listing.concat([{id:action.payload.id}])};
+
 		default:
 			return state;
 	}

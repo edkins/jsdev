@@ -59,9 +59,14 @@ const putModule = (id,data) => (dispatch) => {
 	);
 };
 
+const newModule = (id) => (dispatch) => dispatch({
+    type: 'NEW_MODULE',
+    payload: {id}
+});
+
 const editModule = (data) => (dispatch) => dispatch({
 	type: 'EDIT_MODULE',
 	payload: {data}
 });
 
-export {listModules,getModule,putModule,editModule};
+export {listModules,getModule,putModule,editModule,newModule};

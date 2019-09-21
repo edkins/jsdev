@@ -2,15 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 import ReactTable from 'react-table';
-import {getModule} from '../thunks/modules';
+import {getModule,newModule} from '../thunks/modules';
 
 const find_module = (modules,layer,type) => {
 	for (const m of modules) {
 		if (m.layer === layer && m.type === type) {
-			return m;
+			return {id:m.id, layer, type, real:true};
 		}
 	}
-	return {};
+	return {id:`${layer}--${type}`, layer, type, real:false};
 };
 
 const ModuleGrid = ({layers,types,modules,dispatch}) => {
@@ -21,7 +21,10 @@ const ModuleGrid = ({layers,types,modules,dispatch}) => {
 	const columns = layers.map(({id}) => ({
 		id,
 		accessor: type => find_module(modules,id,type.id),
-		Cell: props => <button onClick={() => dispatch(getModule(props.value.id))}>{props.value.id}</button>,
+		Cell: props =>
+                     <button onClick={() => dispatch(props.value.real ? getModule(props.value.id) : newModule(props.value.id))}>
+                         {props.value.real ? props.value.type : '--'}
+                     </button>,
 		Header: id,
 	}));
 	columns.splice(0,0,{
