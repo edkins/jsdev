@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
-import {editModule} from '../thunks/modules';
+import {editModule,putModule} from '../thunks/modules';
 
 const ModuleEdit = ({id,data,dispatch}) =>
 	<div>
@@ -10,10 +10,11 @@ const ModuleEdit = ({id,data,dispatch}) =>
 		</div>
 		<textarea
 			value={data}
-			onChange={event => {console.log(event.target.value); dispatch(editModule(event.target.value))}}
+			onChange={event => dispatch(editModule(event.target.value))}
 			cols={100}
 			rows={30}
 		/>
+		<button onClick={() => dispatch(putModule(id,data))}>Save</button>
 	</div>;
 
 const mapStateToProps = ({modules:{id,data}}) => ({id,data});

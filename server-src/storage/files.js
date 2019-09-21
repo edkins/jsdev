@@ -35,4 +35,14 @@ const getJs = (dir,name) => new Promise((resolve,reject) => {
 	});
 });
 
-module.exports = {listDirs,listJs,getJs};
+const putJs = (dir,name,data) => new Promise((resolve,reject) => {
+	fs.writeFile(`${dir}/${name}.js`, data, {encoding:'utf8'}, (err) => {
+		if (err) {
+			reject(err);
+		} else {
+			resolve(undefined);
+		}
+	});
+});
+
+module.exports = {listDirs,listJs,getJs,putJs};

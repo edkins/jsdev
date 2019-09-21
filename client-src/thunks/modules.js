@@ -37,9 +37,31 @@ const getModule = (id) => (dispatch) => {
 	);
 };
 
+const putModule = (id,data) => (dispatch) => {
+	dispatch({
+		type: 'PUT_MODULE_REQUEST',
+		payload: {id}
+	});
+
+	fetch(`/api/modules/${id}`,{
+		method: 'PUT',
+		headers: {'Content-Type':'application/json'},
+		body: JSON.stringify({data})
+	}).then(
+		payload =>
+			dispatch({
+				type: 'PUT_MODULE_SUCCESS'
+			}),
+		error =>
+			dispatch({
+				type: 'PUT_MODULE_ERROR'
+			})
+	);
+};
+
 const editModule = (data) => (dispatch) => dispatch({
 	type: 'EDIT_MODULE',
 	payload: {data}
 });
 
-export {listModules,getModule,editModule};
+export {listModules,getModule,putModule,editModule};

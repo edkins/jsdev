@@ -1,4 +1,4 @@
-const {listDirs,listJs,getJs} = require('../storage/files');
+const {listDirs,listJs,getJs,putJs} = require('../storage/files');
 
 async function modulesList() {
 	const result = [];
@@ -14,11 +14,21 @@ async function modulesList() {
 	return result;
 }
 
-async function modulesGet(id) {
+const parse_id = (id) => {
 	const m = id.match(/^([a-z-]+?)--([a-z-]+)$/);
 	const layer = m[1];
 	const type = m[2];
-	return getJs(`server-src/${layer}`, type);
+	return {layer,type};
+};
+
+async function modulesGet(id) {
+	const {layer,type} = parse_id(id);
+	return await getJs(`server-src/${layer}`, type);
 }
 
-module.exports = {modulesList,modulesGet};
+async function modulesPut(id,data) {
+	const {layer,type} = parse_id(id);
+	await putJs(`server-src/${layer}`, type, data);
+}
+
+module.exports = {modulesList,modulesGet,modulesPut};
