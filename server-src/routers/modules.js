@@ -4,7 +4,7 @@ const verifyRegex = require('../validation/verify-regex');
 
 const router = express.Router();
 
-const re = /^[a-z][a-z-]*[a-z]--[a-z][a-z-]*[a-z]$/;
+const re = /^[a-zA-Z][a-zA-Z-]*[a-zA-Z]--[a-zA-Z][a-zA-Z-]*[a-zA-Z]$/;
 
 router.get('/', apiModulesList);
 router.get('/:id', verifyRegex({id:re}), apiModulesGet);

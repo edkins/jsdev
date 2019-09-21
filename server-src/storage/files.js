@@ -13,20 +13,40 @@ const listDirs = (dir) => new Promise((resolve,reject) => {
 	});
 });
 
+const basename = (f) => {
+    if (f.endsWith('.js')) {
+        return path.basename(f,'.js');
+    } else if (f.endsWith('.jsx')) {
+        return path.basename(f,'.jsx');
+    } else {
+        return undefined;
+    }
+}
+
 const listJs = (dir) => new Promise((resolve,reject) => {
 	fs.readdir(dir, (err,files) => {
 		if (err) {
 			reject(err);
 		} else {
-			const listing = files.filter(f => f.endsWith('.js')).map(f => path.basename(f,'.js'));
+			const listing = files.map(basename).filter(f => f !== undefined);
 			listing.sort();
 			resolve(listing);
 		}
 	});
 });
 
-const getJs = (dir,name) => new Promise((resolve,reject) => {
-	fs.readFile(`${dir}/${name}.js`, {encoding:'utf8'}, (err,data) => {
+const fileExists = (dir,name,ext) => new Promise((resolve,reject) => {
+    fs.stat(`${dir}/${name}.${ext}`, (err,stats) => {
+        if (err) {
+            resolve(false);
+        } else {
+            resolve(stats.isFile());
+        }
+    });
+});
+
+const getJs = (dir,name,ext) => new Promise((resolve,reject) => {
+	fs.readFile(`${dir}/${name}.${ext}`, {encoding:'utf8'}, (err,data) => {
 		if (err) {
 			reject(err);
 		} else {
@@ -35,8 +55,8 @@ const getJs = (dir,name) => new Promise((resolve,reject) => {
 	});
 });
 
-const putJs = (dir,name,data) => new Promise((resolve,reject) => {
-	fs.writeFile(`${dir}/${name}.js`, data, {encoding:'utf8'}, (err) => {
+const putJs = (dir,name,data,ext) => new Promise((resolve,reject) => {
+	fs.writeFile(`${dir}/${name}.${ext}`, data, {encoding:'utf8'}, (err) => {
 		if (err) {
 			reject(err);
 		} else {
@@ -45,4 +65,4 @@ const putJs = (dir,name,data) => new Promise((resolve,reject) => {
 	});
 });
 
-module.exports = {listDirs,listJs,getJs,putJs};
+module.exports = {listDirs,listJs,getJs,putJs,fileExists};

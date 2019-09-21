@@ -7,6 +7,11 @@ async function typesList() {
 			map[filename] = true;
 		}
 	}
+	for (const dir of await listDirs('client-src')) {
+		for (const filename of await listJs(`client-src/${dir}`)) {
+			map[filename] = true;
+		}
+	}
 	const filenames = Object.keys(map);
 	filenames.sort();
 	return filenames;
