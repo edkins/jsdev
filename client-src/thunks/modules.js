@@ -37,7 +37,7 @@ const getModule = (id) => (dispatch) => {
 	);
 };
 
-const putModule = (id,data) => (dispatch) => {
+const putModule = (id,data,fileType) => (dispatch) => {
 	dispatch({
 		type: 'PUT_MODULE_REQUEST',
 		payload: {id}
@@ -46,7 +46,7 @@ const putModule = (id,data) => (dispatch) => {
 	fetch(`/api/modules/${id}`,{
 		method: 'PUT',
 		headers: {'Content-Type':'application/json'},
-		body: JSON.stringify({data})
+		body: JSON.stringify({data,fileType})
 	}).then(
 		payload =>
 			dispatch({
@@ -69,4 +69,9 @@ const editModule = (data) => (dispatch) => dispatch({
 	payload: {data}
 });
 
-export {listModules,getModule,putModule,editModule,newModule};
+const changeModuleType = (fileType) => (dispatch) => dispatch({
+	type: 'CHANGE_MODULE_TYPE',
+	payload: {fileType}
+});
+
+export {listModules,getModule,putModule,editModule,changeModuleType,newModule};

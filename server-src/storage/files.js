@@ -23,6 +23,16 @@ const basename = (f) => {
     }
 }
 
+const basenameAndType = (f) => {
+    if (f.endsWith('.js')) {
+        return {fileName: path.basename(f,'.js'), fileType:'js'};
+    } else if (f.endsWith('.jsx')) {
+        return {fileName: path.basename(f,'.jsx'), fileType:'jsx'};
+    } else {
+        return undefined;
+    }
+}
+
 const listJs = (dir) => new Promise((resolve,reject) => {
 	fs.readdir(dir, (err,files) => {
 		if (err) {
@@ -30,6 +40,17 @@ const listJs = (dir) => new Promise((resolve,reject) => {
 		} else {
 			const listing = files.map(basename).filter(f => f !== undefined);
 			listing.sort();
+			resolve(listing);
+		}
+	});
+});
+
+const listTypedJs = (dir) => new Promise((resolve,reject) => {
+	fs.readdir(dir, (err,files) => {
+		if (err) {
+			reject(err);
+		} else {
+			const listing = files.map(basenameAndType).filter(f => f !== undefined);
 			resolve(listing);
 		}
 	});
@@ -65,4 +86,4 @@ const putJs = (dir,name,data,ext) => new Promise((resolve,reject) => {
 	});
 });
 
-module.exports = {listDirs,listJs,getJs,putJs,fileExists};
+module.exports = {listDirs,listJs,listTypedJs,getJs,putJs,fileExists};

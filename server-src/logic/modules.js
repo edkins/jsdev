@@ -48,20 +48,22 @@ async function modulesGet(id) {
 	const {layer,type} = parse_id(id);
         const dir = await findLayer(layer);
         if (await fileExists(dir, type, 'js')) {
-   	    return await getJs(dir, type, 'js');
+   	    const data = await getJs(dir, type, 'js');
+            return {data, fileType:'js'};
         } else if (await fileExists(dir, type, 'jsx')) {
-            return await getJs(dir, type, 'jsx');
+            const data = await getJs(dir, type, 'jsx');
+            return {data, fileType:'jsx'};
         } else {
 	    throw new Error('File not found');
 	}
 }
 
-async function modulesPut(id,data) {
+async function modulesPut(id,data,fileType) {
 	const {layer,type} = parse_id(id);
         const dir = await findLayer(layer);
-        if (await fileExists(dir, type, 'jsx')) {
+        if (fileType === 'jsx') {
             await putJs(dir, type, data, 'jsx');
-        } else {
+        } else if (fileType === 'js') {
             await putJs(dir, type, data, 'js');
         }
 }

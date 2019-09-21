@@ -1,4 +1,4 @@
-function modules(state = {loading:false,listing:[]}, action) {
+function modules(state = {loading:false,listing:[],data:'',id:'',fileType:''}, action) {
 	switch (action.type) {
 		case 'LIST_MODULES_REQUEST':
 			return Object.assign({}, state, {
@@ -17,12 +17,14 @@ function modules(state = {loading:false,listing:[]}, action) {
 		case 'GET_MODULE_REQUEST':
 			return Object.assign({}, state, {
 				loading:true,
-				id:action.payload.id
+				id:action.payload.id,
+                                fileType:'',
 			});
 		case 'GET_MODULE_SUCCESS':
 			return Object.assign({}, state, {
 				loading:false,
 				data:action.payload.data,
+                                fileType:action.payload.fileType,
 				id:action.payload.id
 			});
 		case 'GET_MODULE_ERROR':
@@ -33,6 +35,11 @@ function modules(state = {loading:false,listing:[]}, action) {
 		case 'EDIT_MODULE':
 			return Object.assign({}, state, {
 				data:action.payload.data
+			});
+
+		case 'CHANGE_MODULE_TYPE':
+			return Object.assign({}, state, {
+				fileType:action.payload.fileType
 			});
 
                 case 'NEW_MODULE':
