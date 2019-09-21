@@ -86,4 +86,14 @@ const putJs = (dir,name,data,ext) => new Promise((resolve,reject) => {
 	});
 });
 
-module.exports = {listDirs,listJs,listTypedJs,getJs,putJs,fileExists};
+const deleteJs = (dir,name,ext) => new Promise((resolve,reject) => {
+	fs.unlink(`${dir}/${name}.${ext}`, (err) => {
+		if (err) {
+			reject(err);
+		} else {
+			resolve(undefined);
+		}
+	});
+});
+
+module.exports = {listDirs,listJs,listTypedJs,getJs,putJs,deleteJs,fileExists};

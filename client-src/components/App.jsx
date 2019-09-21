@@ -5,8 +5,7 @@ import {listLayers} from '../thunks/layers';
 import {listTypes} from '../thunks/types';
 import {listModules} from '../thunks/modules';
 import LayerList from './LayerList';
-import ModuleGrid from './ModuleGrid';
-import ModuleEdit from './ModuleEdit';
+import {ModuleGrid,ModuleEdit} from './modules';
 import AddType from './types';
 
 const App = ({typeName,dispatch}) =>

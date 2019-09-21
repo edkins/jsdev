@@ -1,4 +1,4 @@
-const {modulesList,modulesGet,modulesPut} = require('../logic/modules');
+const {modulesList,modulesGet,modulesPut,modulesDelete} = require('../logic/modules');
 
 const apiModulesList = (req,res,next) => {
 	modulesList().then(
@@ -21,4 +21,11 @@ const apiModulesPut = (req,res,next) => {
 	);
 };
 
-module.exports = {apiModulesList,apiModulesGet,apiModulesPut};
+const apiModulesDelete = (req,res,next) => {
+	modulesDelete(req.params.id).then(
+		() => res.status(204),
+		err => next(err)
+	);
+};
+
+module.exports = {apiModulesList,apiModulesGet,apiModulesPut,apiModulesDelete};

@@ -32,6 +32,12 @@ function modules(state = {loading:false,listing:[],data:'',id:'',fileType:''}, a
 				loading:false,
 			});
 
+                case 'DELETE_MODULE_SUCCESS':
+                        return Object.assign({}, state, {
+                            data:'',
+                            fileType:''
+                        });
+
 		case 'EDIT_MODULE':
 			return Object.assign({}, state, {
 				data:action.payload.data

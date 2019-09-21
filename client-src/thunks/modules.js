@@ -59,6 +59,26 @@ const putModule = (id,data,fileType) => (dispatch) => {
 	);
 };
 
+const deleteModule = (id) => (dispatch) => {
+	dispatch({
+		type: 'DELETE_MODULE_REQUEST',
+		payload: {id}
+	});
+
+	fetch(`/api/modules/${id}`,{
+		method: 'DELETE'
+	}).then(
+		payload =>
+			dispatch({
+				type: 'DELETE_MODULE_SUCCESS'
+			}),
+		error =>
+			dispatch({
+				type: 'DELETE_MODULE_ERROR'
+			})
+	);
+};
+
 const newModule = (id) => (dispatch) => dispatch({
     type: 'NEW_MODULE',
     payload: {id}
@@ -74,4 +94,4 @@ const changeModuleType = (fileType) => (dispatch) => dispatch({
 	payload: {fileType}
 });
 
-export {listModules,getModule,putModule,editModule,changeModuleType,newModule};
+export {listModules,getModule,putModule,editModule,deleteModule,changeModuleType,newModule};

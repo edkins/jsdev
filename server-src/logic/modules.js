@@ -1,4 +1,4 @@
-const {listDirs,listJs,getJs,putJs,fileExists} = require('../storage/files');
+const {listDirs,listJs,getJs,putJs,deleteJs,fileExists} = require('../storage/files');
 
 async function findLayer(layer) {
 	for (const dir of await listDirs('server-src')) {
@@ -68,4 +68,15 @@ async function modulesPut(id,data,fileType) {
         }
 }
 
-module.exports = {modulesList,modulesGet,modulesPut};
+async function modulesDelete(id) {
+	const {layer,type} = parse_id(id);
+        const dir = await findLayer(layer);
+        if (await fileExists(dir, type, 'jsx')) {
+            await deleteJs(dir, type, 'jsx');
+        }
+        if (await fileExists(dir, type, 'jsx')) {
+            await deleteJs(dir, type, 'js');
+        }
+}
+
+module.exports = {modulesList,modulesGet,modulesPut,modulesDelete};
