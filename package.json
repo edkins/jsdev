@@ -2,9 +2,9 @@
   "name": "jsdev",
   "version": "1.0.0",
   "description": "Self-hosted javascript development environment based on templates",
-  "main": "server-src/index.js",
+  "main": "server-src/app.js",
   "scripts": {
-    "start": "nodemon server-src/index.js"
+    "start": "nodemon server-src/app.js"
   },
   "repository": {
     "type": "git",
@@ -17,6 +17,7 @@
     "@babel/preset-react": "^7.0.0",
     "acorn": "^7.0.0",
     "acorn-jsx": "^5.0.2",
+    "acorn-walk": "^7.0.0",
     "express": "^4.17.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",

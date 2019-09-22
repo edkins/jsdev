@@ -67,7 +67,11 @@ const getFile = (path) => new Promise((resolve,reject) => {
 });
 
 const fileExists = (dir,name,ext) => new Promise((resolve,reject) => {
-    fs.stat(`${dir}/${name}.${ext}`, (err,stats) => {
+    let p = dir;
+    if (name !== undefined && ext !== undefined) {
+        p = `${dir}/${name}.${ext}`;
+    }
+    fs.stat(p, (err,stats) => {
         if (err) {
             resolve(false);
         } else {

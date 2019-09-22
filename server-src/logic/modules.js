@@ -40,21 +40,38 @@ async function layersList() {
     return result;
 }
 
+function chooseLayer(seenCells, type, hint) {
+    let i = 0;
+    while (true) {
+        const layer = `${hint}${i}`;
+        const cellId = `${type}--${layer}`;
+        if (!(cellId in seenCells)) {
+            seenCells[cellId] = true;
+            return layer;
+        }
+        i += 1;
+    }
+}
+
 async function modulesList() {
     const result = [];
-    const buffer = [{id:'package.json',layer:0}];
+    const buffer = [{id:'package.json',layer:undefined}];
     const seen = {};
+    const seenCells = {};
     
     while (buffer.length > 0) {
-        const {id,layer} = buffer.splice(0, 1)[0];
+        const {id,hint} = buffer.splice(0, 1)[0];
         if (!(id in seen)) {
             seen[id] = true;
             const dotext = path.extname(id);
             const type = path.basename(id, dotext);
-            result.push({id,layer:`layer-${layer}`,type});
+            if (hint !== undefined) {
+                const layer = chooseLayer(seenCells, type, hint);
+                result.push({id,layer,type});
+            }
             const {deps} = await getFileKindAndDeps(id);
             for (const dep of deps) {
-                buffer.push({id:dep, layer:layer+1});
+                buffer.push({id:dep.id, hint:dep.hint});
             }
         }
     }
