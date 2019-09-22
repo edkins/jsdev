@@ -1,8 +1,8 @@
-const {typesList} = require('../logic/types');
+const {typesList} = require('../logic/modules');
 
 const apiTypesList = (req,res,next) => {
 	typesList().then(
-		listing => res.json({listing: listing.map(id => ({id}))}),
+		listing => res.json({listing}),
 		err => next(err)
 	);
 };

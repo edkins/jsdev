@@ -1,8 +1,8 @@
-const {layersList} = require('../logic/layers');
+const {layersList} = require('../logic/modules');
 
 const apiLayersList = (req,res,next) => {
 	layersList().then(
-		listing => res.json({listing: listing.map(id => ({id}))}),
+		listing => res.json({listing}),
 		err => next(err)
 	);
 };

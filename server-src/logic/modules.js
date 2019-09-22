@@ -1,4 +1,6 @@
 const {listDirs,listJs,getJs,putJs,deleteJs,fileExists} = require('../storage/files');
+const {getFileKindAndDeps} = require('../details/modules');
+const path = require('path');
 
 async function findLayer(layer) {
 	for (const dir of await listDirs('server-src')) {
@@ -14,27 +16,50 @@ async function findLayer(layer) {
         throw new Error('Could not find layer');
 }
 
+async function typesList() {
+    const seen = {};
+    const result = [];
+    for (const {type} of await modulesList()) {
+        if (!(type in seen)) {
+             seen[type] = true;
+             result.push({id:type});
+        }
+    }
+    return result;
+}
+
+async function layersList() {
+    const seen = {};
+    const result = [];
+    for (const {layer} of await modulesList()) {
+        if (!(layer in seen)) {
+             seen[layer] = true;
+             result.push({id:layer});
+        }
+    }
+    return result;
+}
+
 async function modulesList() {
-	const result = [];
-	for (const dir of await listDirs('server-src')) {
-		for (const filename of await listJs(`server-src/${dir}`)) {
-			result.push({
-				id: `${dir}--${filename}`,
-				layer: dir,
-				type: filename
-			});
-		}
-	}
-	for (const dir of await listDirs('client-src')) {
-		for (const filename of await listJs(`client-src/${dir}`)) {
-			result.push({
-				id: `${dir}--${filename}`,
-				layer: dir,
-				type: filename
-			});
-		}
-	}
-	return result;
+    const result = [];
+    const buffer = [{id:'package.json',layer:0}];
+    const seen = {};
+    
+    while (buffer.length > 0) {
+        const {id,layer} = buffer.splice(0, 1)[0];
+        if (!(id in seen)) {
+            seen[id] = true;
+            const dotext = path.extname(id);
+            const type = path.basename(id, dotext);
+            result.push({id,layer:`layer-${layer}`,type});
+            const {deps} = await getFileKindAndDeps(id);
+            for (const dep of deps) {
+                buffer.push({id:dep, layer:layer+1});
+            }
+        }
+    }
+
+    return result;
 }
 
 const parse_id = (id) => {
@@ -79,4 +104,4 @@ async function modulesDelete(id) {
         }
 }
 
-module.exports = {modulesList,modulesGet,modulesPut,modulesDelete};
+module.exports = {modulesList,modulesGet,modulesPut,modulesDelete,typesList,layersList};

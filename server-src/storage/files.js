@@ -56,6 +56,16 @@ const listTypedJs = (dir) => new Promise((resolve,reject) => {
 	});
 });
 
+const getFile = (path) => new Promise((resolve,reject) => {
+    fs.readFile(path, {encoding:'utf8'}, (err,data) => {
+        if (err) {
+            reject(err);
+        } else {
+            resolve(data);
+        }
+    });
+});
+
 const fileExists = (dir,name,ext) => new Promise((resolve,reject) => {
     fs.stat(`${dir}/${name}.${ext}`, (err,stats) => {
         if (err) {
@@ -96,4 +106,4 @@ const deleteJs = (dir,name,ext) => new Promise((resolve,reject) => {
 	});
 });
 
-module.exports = {listDirs,listJs,listTypedJs,getJs,putJs,deleteJs,fileExists};
+module.exports = {listDirs,listJs,listTypedJs,getJs,putJs,deleteJs,fileExists,getFile};
