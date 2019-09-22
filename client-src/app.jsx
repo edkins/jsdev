@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 
 import {Provider} from 'react-redux';
 import store from './store';
-import App from './components/App';
+import App from './components/app';
 
 const div = document.createElement('div');
 document.querySelector('body').appendChild(div);

@@ -6,6 +6,7 @@ const apiLayers = require('./routers/layers');
 const apiTypes = require('./routers/types');
 const apiDependencies = require('./routers/dependencies');
 const apiModules = require('./routers/modules');
+const apiFiles = require('./routers/files');
 
 const app = express();
 
@@ -15,6 +16,7 @@ app.get('/bundle.js', watchify);
 app.use('/api/layers', apiLayers);
 app.use('/api/types', apiTypes);
 app.use('/api/modules', apiModules);
+app.use('/api/files', apiFiles);
 
 app.listen(3000, 'localhost');
 
