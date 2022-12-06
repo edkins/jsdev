@@ -18,7 +18,7 @@
     "acorn": "^7.0.0",
     "acorn-jsx": "^5.0.2",
     "acorn-walk": "^7.0.0",
-    "express": "^4.17.1",
+    "express": "^4.18.2",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-redux": "^7.1.1",
